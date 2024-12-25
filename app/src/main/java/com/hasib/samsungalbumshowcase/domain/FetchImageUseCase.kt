@@ -28,7 +28,7 @@ class FetchImageUseCase @Inject constructor(
         }
     }
 
-    suspend fun fetchPhotos(page: Int, limit: Int): Result<List<PhotoDisplay>> {
+    private suspend fun fetchPhotos(page: Int, limit: Int): Result<List<PhotoDisplay>> {
         val albums = albumRepository.fetchAlbums()
         val users = userRepository.fetchUsers()
         val photos = photoRepository.fetchPhotos(page, limit)

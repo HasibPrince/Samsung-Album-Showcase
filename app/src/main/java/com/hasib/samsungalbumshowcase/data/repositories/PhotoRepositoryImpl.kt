@@ -7,7 +7,9 @@ import com.hasib.samsungalbumshowcase.domain.entities.Result
 import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService) : PhotoRepository {
     private val photos = mutableListOf<Photo>()
 

@@ -36,15 +36,21 @@ object NetworkModule {
         return Cache(context.cacheDir, cacheSize)
     }
 
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.HEADERS
+        }
+    }
+
     @Singleton
     @Provides
     fun provideOkHttpClient(
         cache: Cache,
-        interceptor: Interceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
             .addInterceptor(httpLoggingInterceptor) // Put logging interceptor last
             .callTimeout(HTTP_TIMEOUT_IN_SECOND, TimeUnit.SECONDS)
             .cache(cache)
