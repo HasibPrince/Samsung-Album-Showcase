@@ -7,17 +7,22 @@ import com.hasib.samsungalbumshowcase.domain.entities.User
 import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.UserRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UserRepositoryImpl @Inject constructor(private val apiService: ApiService) : UserRepository {
+
     private val users = mutableListOf<User>()
+
     override suspend fun fetchUsers(): Result<List<User>> {
-        if (users.isEmpty()) {
-            val userResult = handleApi{ apiService.getUsers() }
-            userResult.doOnSuccess {
-                users.addAll(it)
-            }
-            return userResult
+        if (users.isNotEmpty()) {
+            return Result.Success(users)
         }
-        return Result.Success(users)
+
+        val userResult = handleApi{ apiService.getUsers() }
+        userResult.doOnSuccess {
+            users.addAll(it)
+        }
+        return userResult
     }
 }
