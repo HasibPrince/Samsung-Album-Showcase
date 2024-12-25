@@ -12,11 +12,11 @@ suspend fun <T> handleApi(apiCall: suspend () -> Response<T>): Result<T> {
         if (response.isSuccessful && body != null) {
             Result.Success(body)
         } else {
-            Result.Error(code = response.code(), message = response.message())
+            Result.BaseError.Error(code = response.code(), errorMessage = response.message())
         }
     } catch (e: HttpException) {
-        Result.Error(code = e.code(), message = e.message())
+        Result.BaseError.Error(code = e.code(), errorMessage = e.message())
     } catch (e: Throwable) {
-        Result.Exception(e)
+        Result.BaseError.Exception(e)
     }
 }

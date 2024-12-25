@@ -4,8 +4,21 @@ import com.hasib.samsungalbumshowcase.domain.entities.Result.Success
 
 sealed class Result<out T> {
     class Success<out T>(val data: T) : Result<T>()
-    class Error(val code: Int, val message: String?) : Result<Nothing>()
-    class Exception(val e: Throwable) : Result<Nothing>()
+    sealed class BaseError<out T>(val errorMessage: String?) : Result<T>() {
+        class Error(val code: Int, errorMessage: String?) : BaseError<Nothing>(errorMessage)
+        class Exception(val e: Throwable) : BaseError<Nothing>(e.message)
+    }
+
+    companion object {
+        fun <T> checkError(vararg results: Result<out T>): BaseError<Nothing>? {
+            results.forEach {
+                if (it is BaseError.Error || it is BaseError.Exception) {
+                    return it
+                }
+            }
+            return null
+        }
+    }
 }
 
 fun <T> Result<T>.doOnSuccess(block: (T) -> Unit) {
@@ -15,13 +28,13 @@ fun <T> Result<T>.doOnSuccess(block: (T) -> Unit) {
 }
 
 fun <T> Result<T>.doOnError(block: (error: String) -> Unit) {
-    if (this is Result.Error) {
-        block(message ?: "Unknown error")
+    if (this is Result.BaseError.Error) {
+        block(errorMessage ?: "Unknown error")
     }
 }
 
 fun <T> Result<T>.doOnException(block: (e: Throwable) -> Unit) {
-    if (this is Result.Exception) {
+    if (this is Result.BaseError.Exception) {
         block(e)
     }
 }

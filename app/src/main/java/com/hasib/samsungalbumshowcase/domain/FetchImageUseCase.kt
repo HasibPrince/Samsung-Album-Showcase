@@ -33,6 +33,10 @@ class FetchImageUseCase @Inject constructor(
         val users = userRepository.fetchUsers()
         val photos = photoRepository.fetchPhotos(page, limit)
 
+        Result.checkError(albums, users, photos)?.let {
+            return it
+        }
+
         albums.doOnSuccess {
             albumMap.putAll(it.associateBy { it.id })
         }
@@ -42,14 +46,18 @@ class FetchImageUseCase @Inject constructor(
         }
 
         val displayPhotos = mutableListOf<PhotoDisplay>()
+        var errorResult: Result.BaseError<*>? = null
 
         photos.doOnSuccess {
-            it.forEach { photo ->
-                val album = albumMap[photo.albumId]
-                val user = userMap[album?.userId ?: 0]
-                displayPhotos.add(PhotoDisplay(photo, album?.title ?: "", user?.username ?: ""))
+            try {
+                it.forEach { photo ->
+                    val album = albumMap[photo.albumId]
+                    val user = userMap[album?.userId ?: 0]
+                    displayPhotos.add(PhotoDisplay(photo, album?.title ?: "", user?.username ?: ""))
+                }
+            } catch (e: NoSuchElementException) {
+                errorResult = Result.BaseError.Exception(e)
             }
-
         }
 
         return Result.Success(displayPhotos)
