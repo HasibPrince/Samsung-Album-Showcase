@@ -21,7 +21,7 @@ sealed class Result<out T> {
     }
 }
 
-fun <T> Result<T>.doOnSuccess(block: (T) -> Unit) {
+suspend fun <T> Result<T>.doOnSuccess(block: suspend (T) -> Unit) {
     if (this is Success) {
         block(data)
     }
@@ -36,5 +36,11 @@ fun <T> Result<T>.doOnError(block: (error: String) -> Unit) {
 fun <T> Result<T>.doOnException(block: (e: Throwable) -> Unit) {
     if (this is Result.BaseError.Exception) {
         block(e)
+    }
+}
+
+fun <T> Result<T>.doOnAnyTypeError(block: (errorMessage: String) -> Unit) {
+    if (this is Result.BaseError<*>) {
+        block(errorMessage ?: "Unknown error")
     }
 }
