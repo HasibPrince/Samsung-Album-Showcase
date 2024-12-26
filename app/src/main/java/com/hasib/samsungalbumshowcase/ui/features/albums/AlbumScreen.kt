@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase.ui
+package com.hasib.samsungalbumshowcase.ui.features.albums
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

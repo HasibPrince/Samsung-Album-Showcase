@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase.ui
+package com.hasib.samsungalbumshowcase.ui.features.albums
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hasib.samsungalbumshowcase.domain.FetchImageUseCase
+import com.hasib.samsungalbumshowcase.domain.usecase.FetchImageUseCase
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
 import com.hasib.samsungalbumshowcase.domain.entities.Result
 import com.hasib.samsungalbumshowcase.domain.entities.doOnAnyTypeError

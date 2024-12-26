@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase
+package com.hasib.samsungalbumshowcase.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.hasib.samsungalbumshowcase.ui.AlbumScreen
+import com.hasib.samsungalbumshowcase.ui.features.albums.AlbumScreen
 import com.hasib.samsungalbumshowcase.ui.theme.SamsungAlbumShowcaseTheme
 import dagger.hilt.android.AndroidEntryPoint
 

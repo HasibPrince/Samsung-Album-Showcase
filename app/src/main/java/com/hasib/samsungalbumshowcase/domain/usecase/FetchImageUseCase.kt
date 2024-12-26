@@ -1,6 +1,5 @@
-package com.hasib.samsungalbumshowcase.domain
+package com.hasib.samsungalbumshowcase.domain.usecase
 
-import com.hasib.samsungalbumshowcase.data.api.handleApi
 import com.hasib.samsungalbumshowcase.domain.entities.Album
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
 import com.hasib.samsungalbumshowcase.domain.entities.User
