@@ -1,5 +1,11 @@
 package com.hasib.samsungalbumshowcase.domain.entities
 
-data class PhotoDisplay(val photo: Photo,
-                        val albumName: String,
-                        val username: String)
+import coil3.Bitmap
+
+data class PhotoDisplay(
+    val photo: Photo,
+    val albumName: String,
+    val username: String,
+    val thumbPhoto: Photo?,
+    val thumbnail: Bitmap? = null
+)

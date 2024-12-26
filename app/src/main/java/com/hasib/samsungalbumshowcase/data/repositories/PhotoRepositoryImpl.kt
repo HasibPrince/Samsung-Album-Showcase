@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService) : PhotoRepository {
     private val photos = mutableListOf<Photo>()
+    private val albumMap = mutableMapOf<Int, Photo>()
 
     override suspend fun fetchPhotos(page: Int, limit: Int): Result<List<Photo>> {
         val refinedLimit = if (photos.size % limit == 0) limit else photos.size % limit
@@ -24,9 +25,16 @@ class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService
 
         val photoResult = handleApi { apiService.getPhotos(page, limit) }
         photoResult.doOnSuccess {
-            photos.addAll(it)
+            it.forEach {
+                photos.add(it)
+                albumMap.putIfAbsent(it.albumId, it)
+            }
         }
 
         return photoResult
+    }
+
+    override fun getPhotoByAlbumId(id: Int): Photo? {
+        return albumMap[id]
     }
 }

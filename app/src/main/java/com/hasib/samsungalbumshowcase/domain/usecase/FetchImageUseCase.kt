@@ -1,6 +1,8 @@
 package com.hasib.samsungalbumshowcase.domain.usecase
 
+import android.util.Log
 import com.hasib.samsungalbumshowcase.domain.entities.Album
+import com.hasib.samsungalbumshowcase.domain.entities.Photo
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
 import com.hasib.samsungalbumshowcase.domain.entities.User
 import com.hasib.samsungalbumshowcase.domain.entities.Result
@@ -49,16 +51,32 @@ class FetchImageUseCase @Inject constructor(
 
         photos.doOnSuccess {
             try {
-                it.forEach { photo ->
-                    val album = albumMap[photo.albumId]
-                    val user = userMap[album?.userId ?: 0]
-                    displayPhotos.add(PhotoDisplay(photo, album?.title ?: "", user?.username ?: ""))
-                }
+                processPhotoList(it, displayPhotos)
             } catch (e: NoSuchElementException) {
                 errorResult = Result.BaseError.Exception(e)
             }
         }
 
         return Result.Success(displayPhotos)
+    }
+
+    private fun processPhotoList(
+        photoList: List<Photo>,
+        displayPhotos: MutableList<PhotoDisplay>
+    ) {
+        photoList.forEach { photo ->
+            val album = albumMap[photo.albumId]
+            val user = userMap[album?.userId ?: 0]
+            val photoForThumb = photoRepository.getPhotoByAlbumId(photo.albumId)
+            Log.d("FetchImageUseCase", "PhotoForThumb: ${photoForThumb?.thumbnailUrl}")
+            displayPhotos.add(
+                PhotoDisplay(
+                    photo,
+                    album?.title ?: "",
+                    user?.username ?: "",
+                    photoForThumb
+                )
+            )
+        }
     }
 }

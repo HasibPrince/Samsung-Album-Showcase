@@ -17,6 +17,9 @@ suspend fun <T> handleApi(apiCall: suspend () -> Response<T>): Result<T> {
     } catch (e: HttpException) {
         Result.BaseError.Error(code = e.code(), errorMessage = e.message())
     } catch (e: Throwable) {
+        if (e is CancellationException) {
+            throw e
+        }
         Result.BaseError.Exception(e)
     }
 }
