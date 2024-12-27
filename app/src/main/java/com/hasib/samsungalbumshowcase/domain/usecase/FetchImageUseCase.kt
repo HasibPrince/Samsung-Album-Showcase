@@ -9,6 +9,8 @@ import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.AlbumRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.UserRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -28,40 +30,45 @@ class FetchImageUseCase @Inject constructor(
         }
     }
 
-    private suspend fun fetchPhotos(page: Int, limit: Int): Result<List<PhotoDisplay>> {
-        val albums = albumRepository.fetchAlbums()
-        val users = userRepository.fetchUsers()
-        val photos = photoRepository.fetchPhotos(page, limit)
+    private suspend fun fetchPhotos(page: Int, limit: Int): Result<List<PhotoDisplay>> =
+        coroutineScope {
+            val albumsResult = async { albumRepository.fetchAlbums() }
+            val usersResult = async { userRepository.fetchUsers() }
+            val photosResult = async { photoRepository.fetchPhotos(page, limit) }
 
-        Result.checkError(albums, users, photos)?.let {
-            return it
-        }
+            val albums = albumsResult.await()
+            val users = usersResult.await()
+            val photos = photosResult.await()
 
-        albums.doOnSuccess {
-            albumMap.putAll(it.associateBy { it.id })
-        }
-
-        users.doOnSuccess {
-            userMap.putAll(it.associateBy { it.id })
-        }
-
-        val displayPhotos = mutableListOf<PhotoDisplay>()
-        var errorResult: Result.BaseError<Nothing>? = null
-
-        photos.doOnSuccess {
-            try {
-                processPhotoList(it, displayPhotos)
-            } catch (e: NoSuchElementException) {
-                errorResult = Result.BaseError.Exception(e)
+            Result.checkError(albums, users, photos)?.let {
+                it
             }
-        }
 
-        errorResult?.let {
-            return it
-        }
+            albums.doOnSuccess {
+                albumMap.putAll(it.associateBy { it.id })
+            }
 
-        return Result.Success(displayPhotos)
-    }
+            users.doOnSuccess {
+                userMap.putAll(it.associateBy { it.id })
+            }
+
+            val displayPhotos = mutableListOf<PhotoDisplay>()
+            var errorResult: Result.BaseError<Nothing>? = null
+
+            photos.doOnSuccess {
+                try {
+                    processPhotoList(it, displayPhotos)
+                } catch (e: NoSuchElementException) {
+                    errorResult = Result.BaseError.Exception(e)
+                }
+            }
+
+            errorResult?.let {
+                it
+            }
+
+            Result.Success(displayPhotos)
+        }
 
     private fun processPhotoList(
         photoList: List<Photo>,
