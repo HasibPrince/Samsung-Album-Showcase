@@ -42,6 +42,7 @@ import coil3.toBitmap
 import coil3.transform.RoundedCornersTransformation
 import com.hasib.samsungalbumshowcase.R
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
+import com.hasib.samsungalbumshowcase.ui.MainActivity
 
 @Composable
 fun AlbumScreen() {
@@ -71,12 +72,12 @@ private fun AlbumList(
 
     LaunchedEffect(shouldStartPaginate.value) {
         if (photoDisplays.isEmpty()) {
-            viewModel.startImageFetchingService(context)
+            viewModel.startImageFetchingService(context, (context as MainActivity).serviceConnection)
             return@LaunchedEffect
         }
 
         if (shouldStartPaginate.value) {
-            viewModel.startImageFetchingService(context)
+            viewModel.startImageFetchingService(context, (context as MainActivity).serviceConnection)
         }
     }
 
@@ -177,7 +178,7 @@ fun SimpleAlertDialog(viewModel: ImageViewModel = viewModel()) {
 
     if (showDialog) {
         AlertDialog(
-            onDismissRequest = { showDialog = false },
+            onDismissRequest = { viewModel.errorMessage.value = "" },
             title = {
                 Text(text = "Error!")
             },
@@ -185,12 +186,12 @@ fun SimpleAlertDialog(viewModel: ImageViewModel = viewModel()) {
                 Text(errorMessage.value)
             },
             confirmButton = {
-                Button(onClick = { showDialog = false }) {
+                Button(onClick = { viewModel.errorMessage.value = "" }) {
                     Text("OK")
                 }
             },
             dismissButton = {
-                Button(onClick = { showDialog = false }) {
+                Button(onClick = { viewModel.errorMessage.value = "" }) {
                     Text("Cancel")
                 }
             }

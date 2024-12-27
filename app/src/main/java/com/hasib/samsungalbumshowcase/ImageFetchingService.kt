@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,11 +31,10 @@ class ImageFetchingService : Service() {
     lateinit var fetchImageUseCase: FetchImageUseCase
 
     private val binder = LocalBinder()
-    var listener: OnImageFetchedListener? = null
 
-    interface OnImageFetchedListener {
-        suspend fun onImageFetched(photoList: Result<List<PhotoDisplay>>)
-    }
+    private val _imageList =
+        MutableStateFlow<Result<List<PhotoDisplay>>>(Result.Success(emptyList<PhotoDisplay>()))
+    val imageList: StateFlow<Result<List<PhotoDisplay>>> get() = _imageList
 
     inner class LocalBinder : Binder() {
         fun getService(): ImageFetchingService = this@ImageFetchingService
@@ -46,11 +47,12 @@ class ImageFetchingService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         Log.d(TAG, "Service started")
+
         val page = intent?.getIntExtra(KEY_PAGE, 1) ?: 1
         val itemsPerPage = intent?.getIntExtra(KEY_ITEMS_PER_PAGE, 20) ?: 20
         coroutineScope.launch {
             fetchImageUseCase(page, itemsPerPage).collect {
-                listener?.onImageFetched(it)
+                _imageList.value = it
             }
         }
         return START_STICKY
