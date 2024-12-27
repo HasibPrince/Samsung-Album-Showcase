@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SamsungAlbumApp"
         android:allowBackup="true"
@@ -13,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SamsungAlbumShowcase"
         tools:targetApi="31">
+        <service
+            android:name=".ImageFetchingService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"

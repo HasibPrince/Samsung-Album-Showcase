@@ -57,8 +57,8 @@ private fun AlbumList(
     innerPadding: PaddingValues,
     viewModel: ImageViewModel = viewModel()
 ) {
+    val context = LocalContext.current
     val photoListState = viewModel.photoItems
-
     val photoDisplays = photoListState
     val lazyListState = rememberLazyListState()
     val shouldStartPaginate = remember {
@@ -71,12 +71,12 @@ private fun AlbumList(
 
     LaunchedEffect(shouldStartPaginate.value) {
         if (photoDisplays.isEmpty()) {
-            viewModel.fetchImages()
+            viewModel.startImageFetchingService(context)
             return@LaunchedEffect
         }
 
         if (shouldStartPaginate.value) {
-            viewModel.fetchImages()
+            viewModel.startImageFetchingService(context)
         }
     }
 

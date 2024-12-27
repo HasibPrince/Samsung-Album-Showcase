@@ -1,11 +1,10 @@
 package com.hasib.samsungalbumshowcase.domain.usecase
 
-import android.util.Log
 import com.hasib.samsungalbumshowcase.domain.entities.Album
 import com.hasib.samsungalbumshowcase.domain.entities.Photo
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.User
 import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.entities.User
 import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.AlbumRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
@@ -47,7 +46,7 @@ class FetchImageUseCase @Inject constructor(
         }
 
         val displayPhotos = mutableListOf<PhotoDisplay>()
-        var errorResult: Result.BaseError<*>? = null
+        var errorResult: Result.BaseError<Nothing>? = null
 
         photos.doOnSuccess {
             try {
@@ -55,6 +54,10 @@ class FetchImageUseCase @Inject constructor(
             } catch (e: NoSuchElementException) {
                 errorResult = Result.BaseError.Exception(e)
             }
+        }
+
+        errorResult?.let {
+            return it
         }
 
         return Result.Success(displayPhotos)
@@ -68,7 +71,6 @@ class FetchImageUseCase @Inject constructor(
             val album = albumMap[photo.albumId]
             val user = userMap[album?.userId ?: 0]
             val photoForThumb = photoRepository.getPhotoByAlbumId(photo.albumId)
-            Log.d("FetchImageUseCase", "PhotoForThumb: ${photoForThumb?.thumbnailUrl}")
             displayPhotos.add(
                 PhotoDisplay(
                     photo,
