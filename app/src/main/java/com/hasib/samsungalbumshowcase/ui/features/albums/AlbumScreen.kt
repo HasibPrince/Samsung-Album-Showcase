@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -104,7 +105,7 @@ private fun AlbumList(
 
         item {
             if (photoDisplays.isNotEmpty()) {
-                LoadingIndicator()
+                LoadingIndicator(modifier)
             }
         }
     }
@@ -112,6 +113,13 @@ private fun AlbumList(
 
 @Composable
 private fun ItemAlbum(modifier: Modifier, item: PhotoDisplay) {
+    ItemBox(modifier) {
+        ItemContent(item)
+    }
+}
+
+@Composable
+private fun ItemBox(modifier: Modifier, content: @Composable BoxScope.() -> Unit) {
     Card(
         modifier = modifier.padding(16.dp),
     ) {
@@ -120,21 +128,26 @@ private fun ItemAlbum(modifier: Modifier, item: PhotoDisplay) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                LoadOptimizedImage(
-                    item.thumbPhoto?.thumbnailUrl ?: "",
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .border(2.dp, Color.Gray, RoundedCornerShape(8.dp)) // Border for the image
-                )
-
-                LoadImageInfo(item)
-            }
+            content()
         }
+    }
+}
+
+@Composable
+private fun ItemContent(item: PhotoDisplay) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        LoadOptimizedImage(
+            item.thumbPhoto?.thumbnailUrl ?: "",
+            modifier = Modifier
+                .size(80.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .border(2.dp, Color.Gray, RoundedCornerShape(8.dp))
+        )
+
+        LoadImageInfo(item)
     }
 }
 
@@ -144,7 +157,7 @@ private fun LoadImageInfo(item: PhotoDisplay) {
         modifier = Modifier
             .fillMaxHeight()
             .padding(start = 8.dp),
-        verticalArrangement = Arrangement.Center // Center align text vertically
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "Album: ${item.albumName}",
@@ -153,7 +166,7 @@ private fun LoadImageInfo(item: PhotoDisplay) {
             )
         )
 
-        Spacer(modifier = Modifier.height(4.dp)) // Spacer between text items
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text(
             text = "Photo title: ${item.photo.title}",
@@ -162,7 +175,7 @@ private fun LoadImageInfo(item: PhotoDisplay) {
             )
         )
 
-        Spacer(modifier = Modifier.height(4.dp)) // Spacer between text items
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text(
             text = "Username: ${item.username}",
@@ -188,13 +201,8 @@ fun LoadOptimizedImage(imageUrl: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoadingIndicator() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
+fun LoadingIndicator(modifier: Modifier) {
+    ItemBox(modifier) {
         CircularProgressIndicator()
     }
 }
