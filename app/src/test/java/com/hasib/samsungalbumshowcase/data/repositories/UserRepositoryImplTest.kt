@@ -1,7 +1,6 @@
-package com.hasib.samsungalbumshowcase
+package com.hasib.samsungalbumshowcase.data.repositories
 
 import com.hasib.samsungalbumshowcase.data.api.ApiService
-import com.hasib.samsungalbumshowcase.data.repositories.UserRepositoryImpl
 import com.hasib.samsungalbumshowcase.domain.entities.Album
 import com.hasib.samsungalbumshowcase.domain.entities.Photo
 import com.hasib.samsungalbumshowcase.domain.entities.User
@@ -18,7 +17,7 @@ import retrofit2.Response
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class UserRepositoryImplTest {
 
     private lateinit var apiService: ApiService
     private lateinit var userRepo: UserRepositoryImpl
