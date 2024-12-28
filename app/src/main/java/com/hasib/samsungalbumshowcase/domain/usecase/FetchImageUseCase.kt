@@ -1,5 +1,6 @@
 package com.hasib.samsungalbumshowcase.domain.usecase
 
+import androidx.annotation.OpenForTesting
 import com.hasib.samsungalbumshowcase.domain.entities.Album
 import com.hasib.samsungalbumshowcase.domain.entities.Photo
 import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class FetchImageUseCase @Inject constructor(
+@OpenForTesting
+open class FetchImageUseCase @Inject constructor(
     private val photoRepository: PhotoRepository,
     private val albumRepository: AlbumRepository,
     private val userRepository: UserRepository
@@ -24,7 +26,8 @@ class FetchImageUseCase @Inject constructor(
     private val albumMap = mutableMapOf<Int, Album>()
     private val userMap = mutableMapOf<Int, User>()
 
-    operator fun invoke(page: Int, limit: Int): Flow<Result<List<PhotoDisplay>>> {
+    @OpenForTesting
+    open operator fun invoke(page: Int, limit: Int): Flow<Result<List<PhotoDisplay>>> {
         return flow {
             emit(fetchPhotos(page, limit))
         }
@@ -41,7 +44,7 @@ class FetchImageUseCase @Inject constructor(
             val photos = photosResult.await()
 
             Result.checkError(albums, users, photos)?.let {
-                it
+                return@coroutineScope it
             }
 
             albums.doOnSuccess {
@@ -64,7 +67,7 @@ class FetchImageUseCase @Inject constructor(
             }
 
             errorResult?.let {
-                it
+                return@coroutineScope it
             }
 
             Result.Success(displayPhotos)

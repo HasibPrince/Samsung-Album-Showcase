@@ -61,7 +61,6 @@ class ImageViewModel @Inject constructor(private val fetchImageUseCase: FetchIma
             if (it.isEmpty()) {
                 return@doOnSuccess
             }
-            Log.d(TAG, "Received: ${it.map { photo -> photo.photo.id }}")
             _photoItems.addAll(it)
             page++
         }

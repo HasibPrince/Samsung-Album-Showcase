@@ -39,6 +39,9 @@ android {
     buildFeatures {
         compose = true
     }
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 dependencies {
@@ -61,10 +64,23 @@ dependencies {
     implementation(libs.coil.network)
     implementation(libs.http.logging.interceptor)
     testImplementation(libs.junit)
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-common")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation(libs.mockito)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.robolectric:robolectric:4.6.1")
+//    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+//    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+//    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation("org.mockito:mockito-android:5.14.2")
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
