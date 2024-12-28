@@ -16,9 +16,9 @@
         android:theme="@style/Theme.SamsungAlbumShowcase"
         tools:targetApi="31">
         <service
-            android:name=".ImageFetchingService"
+            android:name=".service.ImageFetchingService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
 
         <activity
             android:name=".ui.MainActivity"

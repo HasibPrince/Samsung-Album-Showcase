@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.hasib.samsungalbumshowcase.ImageFetchingService
+import com.hasib.samsungalbumshowcase.service.ImageFetchingService
 import com.hasib.samsungalbumshowcase.ui.features.albums.AlbumScreen
 import com.hasib.samsungalbumshowcase.ui.features.albums.ImageViewModel
 import com.hasib.samsungalbumshowcase.ui.theme.SamsungAlbumShowcaseTheme

@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase
+package com.hasib.samsungalbumshowcase.service
 
 import android.app.Service
 import android.content.Context
