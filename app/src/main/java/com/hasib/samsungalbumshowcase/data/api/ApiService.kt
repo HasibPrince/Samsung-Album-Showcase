@@ -1,8 +1,8 @@
 package com.hasib.samsungalbumshowcase.data.api
 
-import com.hasib.samsungalbumshowcase.domain.entities.Album
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.User
+import com.hasib.samsungalbumshowcase.domain.models.Album
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.User
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

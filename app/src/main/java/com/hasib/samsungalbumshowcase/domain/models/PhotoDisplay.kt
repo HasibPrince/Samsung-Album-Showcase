@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase.domain.entities
+package com.hasib.samsungalbumshowcase.domain.models
 
 import coil3.Bitmap
 

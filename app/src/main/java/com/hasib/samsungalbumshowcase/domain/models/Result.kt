@@ -1,6 +1,6 @@
-package com.hasib.samsungalbumshowcase.domain.entities
+package com.hasib.samsungalbumshowcase.domain.models
 
-import com.hasib.samsungalbumshowcase.domain.entities.Result.Success
+import com.hasib.samsungalbumshowcase.domain.models.Result.Success
 
 sealed class Result<out T> {
     class Success<out T>(val data: T) : Result<T>()

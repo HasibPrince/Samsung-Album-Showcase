@@ -3,7 +3,7 @@ package com.hasib.samsungalbumshowcase.data.api
 import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import retrofit2.Response
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.Result
 
 suspend fun <T> handleApi(apiCall: suspend () -> Response<T>): Result<T> {
     return try {

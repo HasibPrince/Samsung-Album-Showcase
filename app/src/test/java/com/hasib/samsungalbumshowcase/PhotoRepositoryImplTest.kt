@@ -2,8 +2,8 @@ package com.hasib.samsungalbumshowcase
 
 import com.hasib.samsungalbumshowcase.data.api.ApiService
 import com.hasib.samsungalbumshowcase.data.repositories.PhotoRepositoryImpl
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.Result
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

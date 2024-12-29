@@ -46,7 +46,7 @@ import coil3.request.crossfade
 import coil3.request.placeholder
 import coil3.request.transformations
 import coil3.transform.RoundedCornersTransformation
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
 import com.hasib.samsungalbumshowcase.ui.MainActivity
 import com.hasib.samsungalbumshowcase.ui.theme.PurpleGrey80
 

@@ -2,9 +2,9 @@ package com.hasib.samsungalbumshowcase.data.repositories
 
 import com.hasib.samsungalbumshowcase.data.api.ApiService
 import com.hasib.samsungalbumshowcase.data.api.handleApi
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.Result
-import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.Result
+import com.hasib.samsungalbumshowcase.domain.models.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import javax.inject.Inject
 import javax.inject.Singleton

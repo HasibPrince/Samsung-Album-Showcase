@@ -1,12 +1,12 @@
 package com.hasib.samsungalbumshowcase.domain.usecase
 
 import androidx.annotation.OpenForTesting
-import com.hasib.samsungalbumshowcase.domain.entities.Album
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.Result
-import com.hasib.samsungalbumshowcase.domain.entities.User
-import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
+import com.hasib.samsungalbumshowcase.domain.models.Album
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.Result
+import com.hasib.samsungalbumshowcase.domain.models.User
+import com.hasib.samsungalbumshowcase.domain.models.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.repositories.AlbumRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.UserRepository

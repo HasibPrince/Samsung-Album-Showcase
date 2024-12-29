@@ -2,8 +2,8 @@ package com.hasib.samsungalbumshowcase
 
 import com.hasib.samsungalbumshowcase.data.api.ApiService
 import com.hasib.samsungalbumshowcase.data.repositories.AlbumRepositoryImpl
-import com.hasib.samsungalbumshowcase.domain.entities.Album
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.Album
+import com.hasib.samsungalbumshowcase.domain.models.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.verify
 import retrofit2.Response
-import java.net.SocketException
 
 
 @OptIn(ExperimentalCoroutinesApi::class)

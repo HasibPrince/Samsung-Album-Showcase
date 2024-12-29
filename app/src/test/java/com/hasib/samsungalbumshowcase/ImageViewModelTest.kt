@@ -1,28 +1,21 @@
 package com.hasib.samsungalbumshowcase
 
-import android.content.Context
-import android.content.ServiceConnection
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.Result
 import com.hasib.samsungalbumshowcase.domain.usecase.FetchImageUseCase
-import com.hasib.samsungalbumshowcase.service.ImageFetchingService
+import com.hasib.samsungalbumshowcase.ui.features.albums.ITEMS_PER_PAGE
 import com.hasib.samsungalbumshowcase.ui.features.albums.ImageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.*
-import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.MockedStatic
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
@@ -34,12 +27,6 @@ class ImageViewModelTest {
 
     @Mock
     private lateinit var fetchImageUseCase: FetchImageUseCase
-
-    @Mock
-    private lateinit var context: Context
-
-    @Mock
-    private lateinit var serviceConnection: ServiceConnection
 
     private lateinit var viewModel: ImageViewModel
 
@@ -63,7 +50,7 @@ class ImageViewModelTest {
 
     @Test
     fun `fetchImages should update photoItems and increment page`() = runTest {
-        `when`(fetchImageUseCase(1, 5000)).thenReturn(
+        `when`(fetchImageUseCase(1, ITEMS_PER_PAGE)).thenReturn(
             flow {
                 emit(Result.Success(mockPhotoDisplays))
             }
@@ -80,7 +67,7 @@ class ImageViewModelTest {
     @Test
     fun `fetchImages should handle errors and update errorMessage`() = runTest {
         val errorMessage = "Failed to fetch photos"
-        `when`(fetchImageUseCase(1, 5000)).thenReturn(
+        `when`(fetchImageUseCase(1, ITEMS_PER_PAGE)).thenReturn(
             flow {
                 emit(Result.BaseError.Error(404, errorMessage))
             }

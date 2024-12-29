@@ -7,8 +7,8 @@ import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.Result
 import com.hasib.samsungalbumshowcase.domain.usecase.FetchImageUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

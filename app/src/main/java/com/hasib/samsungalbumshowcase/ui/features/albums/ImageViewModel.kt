@@ -9,17 +9,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.Result
-import com.hasib.samsungalbumshowcase.domain.entities.doOnAnyTypeError
-import com.hasib.samsungalbumshowcase.domain.entities.doOnSuccess
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.Result
+import com.hasib.samsungalbumshowcase.domain.models.doOnAnyTypeError
+import com.hasib.samsungalbumshowcase.domain.models.doOnSuccess
 import com.hasib.samsungalbumshowcase.domain.usecase.FetchImageUseCase
 import com.hasib.samsungalbumshowcase.service.ImageFetchingService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val ITEMS_PER_PAGE = 5000
+const val ITEMS_PER_PAGE = 500
 private const val TAG = "ImageViewModel"
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-import com.hasib.samsungalbumshowcase.domain.entities.*
+import com.hasib.samsungalbumshowcase.domain.models.*
 import com.hasib.samsungalbumshowcase.domain.repositories.AlbumRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.UserRepository

@@ -2,8 +2,8 @@ package com.hasib.samsungalbumshowcase
 
 import com.hasib.samsungalbumshowcase.data.api.ApiService
 import com.hasib.samsungalbumshowcase.data.repositories.UserRepositoryImpl
-import com.hasib.samsungalbumshowcase.domain.entities.Result
-import com.hasib.samsungalbumshowcase.domain.entities.User
+import com.hasib.samsungalbumshowcase.domain.models.Result
+import com.hasib.samsungalbumshowcase.domain.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody

@@ -1,4 +1,4 @@
-package com.hasib.samsungalbumshowcase.domain.entities
+package com.hasib.samsungalbumshowcase.domain.models
 
 data class Photo(
     val albumId: Int,

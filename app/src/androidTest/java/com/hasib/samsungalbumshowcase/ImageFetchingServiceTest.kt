@@ -7,9 +7,9 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.hasib.samsungalbumshowcase.domain.entities.Photo
-import com.hasib.samsungalbumshowcase.domain.entities.PhotoDisplay
-import com.hasib.samsungalbumshowcase.domain.entities.Result
+import com.hasib.samsungalbumshowcase.domain.models.Photo
+import com.hasib.samsungalbumshowcase.domain.models.PhotoDisplay
+import com.hasib.samsungalbumshowcase.domain.models.Result
 import com.hasib.samsungalbumshowcase.service.ImageFetchingService
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
