@@ -10,6 +10,7 @@ A clean and responsive Android application for showcasing albums and photos. Bui
 
 ## Table of Contents
 
+- [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)  
