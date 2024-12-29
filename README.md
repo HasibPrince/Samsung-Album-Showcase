@@ -21,6 +21,11 @@ A clean and responsive Android application for showcasing albums and photos. Bui
 
 ---
 
+## 📸 Screenshots  
+
+### Home Screen
+![Home Screen](screenshots/samsung-showcase-home.png)
+
 
 ## Tech Stack
 
