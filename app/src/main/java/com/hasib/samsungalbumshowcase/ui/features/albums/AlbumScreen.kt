@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.Bitmap
 import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
@@ -141,6 +142,7 @@ private fun ItemContent(item: PhotoDisplay) {
     ) {
         LoadOptimizedImage(
             item.thumbPhoto?.thumbnailUrl ?: "",
+            item.thumbnail,
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(8.dp))
@@ -185,19 +187,27 @@ private fun LoadImageInfo(item: PhotoDisplay) {
 }
 
 @Composable
-fun LoadOptimizedImage(imageUrl: String, modifier: Modifier = Modifier) {
-    AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(imageUrl)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .placeholder(ColorDrawable(PurpleGrey80.hashCode()))
-            .crossfade(true)
-            .size(100, 100)
-            .transformations(RoundedCornersTransformation(16f))
-            .build(),
-        contentDescription = "Loaded Image",
-        modifier = modifier.size(80.dp)
-    )
+fun LoadOptimizedImage(imageUrl: String, bitmap: Bitmap?, modifier: Modifier = Modifier) {
+    if (bitmap != null) {
+        AsyncImage(
+            model = bitmap,
+            contentDescription = "Loaded Image",
+        )
+    }
+//    else {
+//        AsyncImage(
+//            model = ImageRequest.Builder(LocalContext.current)
+//                .data(imageUrl)
+//                .memoryCachePolicy(CachePolicy.ENABLED)
+//                .placeholder(ColorDrawable(PurpleGrey80.hashCode()))
+//                .crossfade(true)
+//                .size(100, 100)
+//                .transformations(RoundedCornersTransformation(16f))
+//                .build(),
+//            contentDescription = "Loaded Image",
+//            modifier = modifier.size(80.dp)
+//        )
+//    }
 }
 
 @Composable

@@ -7,5 +7,5 @@ data class PhotoDisplay(
     val albumName: String,
     val username: String,
     val thumbPhoto: Photo?,
-    val thumbnail: Bitmap? = null
+    var thumbnail: Bitmap? = null
 )
