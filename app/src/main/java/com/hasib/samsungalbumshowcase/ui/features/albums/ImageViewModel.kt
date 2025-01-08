@@ -58,6 +58,7 @@ class ImageViewModel @Inject constructor(private val fetchImageUseCase: FetchIma
 
     suspend fun handlePhotoDisplayResult(result: Result<List<PhotoDisplay>>) {
         result.doOnSuccess {
+            Log.d(TAG, "Received photo display result: ${it.size}")
             if (it.isEmpty()) {
                 return@doOnSuccess
             }

@@ -1,5 +1,6 @@
 package com.hasib.samsungalbumshowcase.ui.features.albums
 
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -140,14 +141,20 @@ private fun ItemContent(item: PhotoDisplay) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        LoadOptimizedImage(
-            item.thumbPhoto?.thumbnailUrl ?: "",
-            item.thumbnail,
-            modifier = Modifier
-                .size(80.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .border(2.dp, Color.Gray, RoundedCornerShape(8.dp))
-        )
+        val options = BitmapFactory.Options();
+        options.inMutable = true
+        var bitmap: Bitmap? = null
+        if (item.thumbBytes != null) {
+            bitmap = BitmapFactory.decodeByteArray(item.thumbBytes, 0, item.thumbBytes!!.size)
+            LoadOptimizedImage(
+                item.thumbPhoto?.thumbnailUrl ?: "",
+                bitmap,
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .border(2.dp, Color.Gray, RoundedCornerShape(8.dp))
+            )
+        }
 
         LoadImageInfo(item)
     }
@@ -192,22 +199,23 @@ fun LoadOptimizedImage(imageUrl: String, bitmap: Bitmap?, modifier: Modifier = M
         AsyncImage(
             model = bitmap,
             contentDescription = "Loaded Image",
+            modifier = modifier.size(80.dp)
         )
     }
-//    else {
-//        AsyncImage(
-//            model = ImageRequest.Builder(LocalContext.current)
-//                .data(imageUrl)
-//                .memoryCachePolicy(CachePolicy.ENABLED)
-//                .placeholder(ColorDrawable(PurpleGrey80.hashCode()))
-//                .crossfade(true)
-//                .size(100, 100)
-//                .transformations(RoundedCornersTransformation(16f))
-//                .build(),
-//            contentDescription = "Loaded Image",
-//            modifier = modifier.size(80.dp)
-//        )
-//    }
+    else {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(imageUrl)
+                .memoryCachePolicy(CachePolicy.ENABLED)
+                .placeholder(ColorDrawable(PurpleGrey80.hashCode()))
+                .crossfade(true)
+                .size(100, 100)
+                .transformations(RoundedCornersTransformation(16f))
+                .build(),
+            contentDescription = "Loaded Image",
+            modifier = modifier.size(80.dp)
+        )
+    }
 }
 
 @Composable

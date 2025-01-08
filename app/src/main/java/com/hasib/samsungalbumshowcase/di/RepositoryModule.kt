@@ -2,9 +2,11 @@ package com.hasib.samsungalbumshowcase.di
 
 import com.hasib.samsungalbumshowcase.data.repositories.AlbumRepositoryImpl
 import com.hasib.samsungalbumshowcase.data.repositories.PhotoRepositoryImpl
+import com.hasib.samsungalbumshowcase.data.repositories.ThumbRepositoryImpl
 import com.hasib.samsungalbumshowcase.data.repositories.UserRepositoryImpl
 import com.hasib.samsungalbumshowcase.domain.repositories.AlbumRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.PhotoRepository
+import com.hasib.samsungalbumshowcase.domain.repositories.ThumbRepository
 import com.hasib.samsungalbumshowcase.domain.repositories.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -27,4 +29,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun providePhotoRepository(photoRepositoryImpl: PhotoRepositoryImpl): PhotoRepository
+
+    @Singleton
+    @Binds
+    fun provideThumbRepository(photoRepositoryImpl: ThumbRepositoryImpl): ThumbRepository
 }
